@@ -3,28 +3,20 @@ import './assets/js/main.js'
 
 import {Routes, Route} from "react-router-dom";
 
-import Sidebar from './layout/Sidebar.jsx'
-import Overview from "./Page/OverviewPage.jsx";
-import Content2 from "./Page/Content2.jsx";
+import Overview from "./layout/DashboardPage/OverviewPage.jsx";
+import Dashboard from "./layout/Dashboard.jsx";
+import BooksTable from "./layout/DashboardPage/BooksTableView.jsx";
+import MembersTable from "./layout/DashboardPage/MembersTableView.jsx";
 
 function App() {
     return (
-        <div
-            className="page-wrapper"
-            id="main-wrapper"
-            data-layout="vertical"
-            data-navbarbg="skin6"
-            data-sidebartype="full"
-            data-sidebar-position="fixed"
-            data-header-position="fixed"
-        >
-            <Sidebar/>
-            <Routes>
-                <Route path='/' element={<Overview/>}/>
-                <Route path={'/books'} element={<Content2/>}/>
-            </Routes>
-
-        </div>
+        <Routes>
+            <Route path='/' element={<Dashboard/>}>
+                <Route index element={<Overview/>}/>
+                <Route path={'/books'} element={<BooksTable/>}/>
+                <Route path={'/members'} element={<MembersTable/>}/>
+            </Route>
+        </Routes>
     )
 }
 
