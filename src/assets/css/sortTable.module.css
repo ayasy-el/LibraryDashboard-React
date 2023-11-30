@@ -1,10 +1,15 @@
+.Booktb {
+    text-align: center;
+    box-shadow: 2px 2px 50px rgba(0, 0, 0, 0.05);
+}
+
 tr .theader {
     cursor: pointer;
-    color: white;
-    background-color: #2a3547;
+    color: black;
+    background-color: rgba(42, 53, 71, 0.06);
     transition: 0.3s ease;
 }
 
 .theader:hover {
-    background-color: rgba(42, 53, 71, 0.9);
+    background-color: rgba(42, 53, 71, 0.03);
 }

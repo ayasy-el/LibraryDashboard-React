@@ -1,4 +1,4 @@
-import TableSort from "../Component/SortTable2.jsx";
+import TableSort from "../Component/MembersTable.jsx";
 
 export default function Content() {
     return (

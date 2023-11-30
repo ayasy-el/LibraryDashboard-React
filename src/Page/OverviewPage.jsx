@@ -32,7 +32,7 @@ export default function OverviewPage() {
                     <OverdueDetails/>
                 </div>
                 <div className="row">
-                    <h3 className="fw-bolder fs-8 mb-9 py-9">Book Of the Month</h3>
+                    <h3 className="fw-bolder fs-8 mb-9 py-9">New Books</h3>
                     <ProductCard/>
                 </div>
             </div>
