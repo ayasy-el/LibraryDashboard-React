@@ -34,6 +34,28 @@ const navConfig = [
     }
 ];
 
+function DividerItem({title}) {
+    return (
+        <li className="nav-small-cap">
+            <i className="ti ti-dots nav-small-cap-icon fs-4"/>
+            <span className="hide-menu">{title}</span>
+        </li>
+    );
+}
+
+function SidebarLink({item}) {
+    return (
+        <li className="sidebar-item">
+            <Link className="sidebar-link" to={item.path} aria-expanded="false">
+                <span>
+                    <i className={`ti ti-${item.icon}`}/>
+                </span>
+                <span className="hide-menu">{item.title}</span>
+            </Link>
+        </li>
+    );
+}
+
 function NavHead() {
     return (
         <div className="brand-logo d-flex align-items-center justify-content-between">
@@ -47,28 +69,15 @@ function NavHead() {
                 <i className="ti ti-x fs-8"/>
             </div>
         </div>
-    )
+    );
 }
 
 function NavItems() {
     return navConfig.map((item, idx) => (
         item.type === 'divider' ?
-            <li key={idx} className="nav-small-cap">
-                <i className="ti ti-dots nav-small-cap-icon fs-4"/>
-                <span className="hide-menu">{item.title}</span>
-            </li> : <li key={idx} className="sidebar-item">
-                <Link
-                    className="sidebar-link"
-                    to={item.path}
-                    aria-expanded="false"
-                >
-                    <span>
-                        <i className={`ti ti-${item.icon}`}/>
-                    </span>
-                    <span className="hide-menu">{item.title}</span>
-                </Link>
-            </li>
-    ))
+            <DividerItem key={idx} title={item.title}/> :
+            <SidebarLink key={idx} item={item}/>
+    ));
 }
 
 export default function Sidebar() {
@@ -81,5 +90,5 @@ export default function Sidebar() {
                 </ul>
             </nav>
         </aside>
-    )
+    );
 }

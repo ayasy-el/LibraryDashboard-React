@@ -61,7 +61,7 @@ let option = {
     },
 };
 
-export default function BooksGraph() {
+export default function BooksStatus() {
     return (
         <div className="col-lg-12">
             {/* Yearly Breakup */}
@@ -80,12 +80,12 @@ export default function BooksGraph() {
                                 <p className="fs-3 mb-0">last year</p>
                             </div>
                             <div className="d-flex align-items-center">
-                                <div className="me-3">
+                                <div className="me-2">
                                     <span
                                         className="round-8 bg-primary rounded-circle me-1 d-inline-block"/>
                                     <span className="fs-2">Borrowed</span>
                                 </div>
-                                <div className="me-3">
+                                <div className="me-2">
                                     <span
                                         className="round-8 bg-warning rounded-circle me-1 d-inline-block"/>
                                     <span className="fs-2">Overdue</span>

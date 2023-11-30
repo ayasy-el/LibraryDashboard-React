@@ -1,0 +1,10 @@
+tr .theader {
+    cursor: pointer;
+    color: white;
+    background-color: #2a3547;
+    transition: 0.3s ease;
+}
+
+.theader:hover {
+    background-color: rgba(42, 53, 71, 0.9);
+}
