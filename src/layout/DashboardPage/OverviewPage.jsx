@@ -19,7 +19,7 @@ export default function OverviewPage() {
             </div>
             <div className="row">
                 <VisitorsGraph/>
-                <div className="col-lg-4 row">
+                <div className="col-lg-4 row pe-0">
                     <BooksStatus/>
                     <FavGenreGraph/>
                 </div>

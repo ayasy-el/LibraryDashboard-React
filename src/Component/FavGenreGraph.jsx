@@ -25,21 +25,56 @@ let option = {
         opacity: 0.8
     },
     responsive: [{
-        breakpoint: 480,
+        breakpoint: 320,
         options: {
             chart: {
-                width: 200
+                height: 250,
+                width: 220
             },
             legend: {
                 position: 'bottom'
             }
         }
-    }]
+    }, {
+        breakpoint: 480,
+        options: {
+            chart: {
+                height: 250
+            },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    },
+        {
+            breakpoint: 768,
+            options: {
+                chart: {
+                    height: 250,
+                    width: 340
+                },
+                legend: {
+                    position: 'right'
+                }
+            }
+        },
+        {
+            breakpoint: 992,
+            options: {
+                chart: {
+                    height: 300,
+                    width: 440
+                },
+                legend: {
+                    position: 'right'
+                }
+            }
+        }]
 }
 
 export default function FavGenreGraph() {
     return (
-        <div className="col-lg-12">
+        <div className="col-lg-12 p-0">
             <div className="card pb-9">
                 <div className="card-body pb-0">
                     <div className="row align-items-start">
@@ -61,7 +96,9 @@ export default function FavGenreGraph() {
                         </div>
                     </div>
                 </div>
-                <Chart options={option} type='polarArea' series={series} height={180} width={320}/>
+                <div className='d-flex justify-content-center'>
+                    <Chart options={option} type='polarArea' series={series} height={200} width={318}/>
+                </div>
             </div>
         </div>
     )

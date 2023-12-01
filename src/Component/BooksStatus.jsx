@@ -63,7 +63,7 @@ let option = {
 
 export default function BooksStatus() {
     return (
-        <div className="col-lg-12">
+        <div className="col-lg-12 p-0">
             {/* Yearly Breakup */}
             <div className="card overflow-hidden">
                 <div className="card-body p-4">
