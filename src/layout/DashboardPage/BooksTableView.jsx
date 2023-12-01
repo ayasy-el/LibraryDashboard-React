@@ -83,14 +83,20 @@ const BooksRows = ({row, index}) => (
 )
 
 const BooksTable = ({search, handleSearchChange, setSorting, sortBy, reverseSortDirection, rows}) => (
-    <div className="container mt-4">
-        <input
-            type="text"
-            className="form-control mb-3"
-            placeholder="Search by any field"
-            value={search}
-            onChange={handleSearchChange}
-        />
+    <div className="container mt-2">
+        <h2 className='text-center mb-4 fw-bolder'>All Books</h2>
+        <div className="input-group border rounded-3 mb-4">
+            <span className="input-group-text bg-transparent px-6 border-0">
+                <i className="ti ti-search fs-6"></i>
+            </span>
+            <input
+                type="text"
+                className="form-control border-0"
+                placeholder="Search by any field"
+                value={search}
+                onChange={handleSearchChange}
+            />
+        </div>
         <div className={`${style.tableView} table-responsive rounded-2 mb-4`}>
             <table className="table align-middle text-nowrap mb-0 table-hover">
                 <thead>
