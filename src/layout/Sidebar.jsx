@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 const navConfig = [
     {
@@ -46,12 +46,13 @@ function DividerItem({title}) {
 function SidebarLink({item}) {
     return (
         <li className="sidebar-item">
-            <Link className="sidebar-link" to={item.path} aria-expanded="false">
+            <NavLink className={`sidebar-link ${({isActive}) => isActive ? 'selected' : ''}`} to={item.path}
+                     aria-expanded="false">
                 <span>
                     <i className={`ti ti-${item.icon}`}/>
                 </span>
                 <span className="hide-menu">{item.title}</span>
-            </Link>
+            </NavLink>
         </li>
     );
 }

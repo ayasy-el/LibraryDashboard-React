@@ -81,7 +81,7 @@ export default function VisitorsGraph() {
                     <div className="d-sm-flex d-block align-items-center justify-content-between">
                         <div className="mb-3 mb-sm-0">
                             <h5 className="card-title fs-8 fw-semibold">
-                                Jumlah Pengunjung
+                                Visitors Overview
                             </h5>
                             <p className="card-subtitle mb-0">Overview of Profit</p>
                         </div>
