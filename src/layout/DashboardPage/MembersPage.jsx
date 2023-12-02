@@ -1,6 +1,6 @@
 import React from 'react';
 import style from "../../assets/css/Table.module.css";
-import {useTableLogic} from "./testLib.js";
+import {useTableLogic} from "../../Component/FilterTableLib.js";
 
 const membersData = [
     {
@@ -85,7 +85,7 @@ const membersData = [
     }
 ];
 
-function TestTable() {
+function MembersPage() {
     const {
         search,
         sortedData,
@@ -180,4 +180,4 @@ function TestTable() {
     );
 }
 
-export default TestTable;
+export default MembersPage;
