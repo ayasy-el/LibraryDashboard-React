@@ -8,7 +8,11 @@ import Dashboard from "./layout/Dashboard.jsx";
 import BooksTable from "./layout/DashboardPage/BooksTableView.jsx";
 import MembersTable from "./layout/DashboardPage/MembersTableView.jsx";
 import Auth from "./layout/Auth.jsx";
-import AccountSetting from "./layout/AccountSetting.jsx";
+import AccountSetting from "./layout/DashboardPage/AccountSetting.jsx";
+import AddBook from "./layout/DashboardPage/AddBook.jsx";
+import MemberEdit from "./layout/DashboardPage/AddMember.jsx";
+import AddMember from "./layout/DashboardPage/Member2.jsx";
+import StepForm from "./layout/DashboardPage/LendBook.jsx";
 
 function App() {
     return (
@@ -19,7 +23,11 @@ function App() {
                 <Route index element={<Overview/>}/>
                 <Route path={'/account-setting'} element={<AccountSetting/>}/>
                 <Route path={'/books'} element={<BooksTable/>}/>
+                <Route path={'/add-book'} element={<AddBook/>}/>
                 <Route path={'/members'} element={<MembersTable/>}/>
+                <Route path={'/add-member'} element={<AddMember/>}/>
+                <Route path={'/edit-member'} element={<MemberEdit/>}/>
+                <Route path={'/lend-book'} element={<StepForm/>}/>
             </Route>
         </Routes>
     )
