@@ -1,221 +1,105 @@
-import React, {useState} from 'react';
+import React, {useRef} from 'react';
+import {membersData} from './MembersTableView.jsx'
+import style from "../../assets/css/Table.module.css";
+import CreateTable from "../../Component/CreateTable.jsx";
+
+const MembersRows = ({row, index}) => {
+
+    return <tr key={index}>
+        <td><img className='rounded-circle' src={row.img} alt={row.name} width={40} height={40}/></td>
+        <td><h6 className="fw-semibold mb-1">{row.name}</h6></td>
+        <td><p className="mb-0 fs-3 text-dark">{row.memberId}</p></td>
+        <td>
+            <label className='btn me-2 btn-primary'>
+                {selectedRef.current ? 'Selected' : 'Select'}
+                <input
+                    type='radio'
+                    className='d-none'
+                    name='select'
+                    value={row.memberId}
+                    onChange={handleRadioChange}
+                />
+            </label>
+        </td>
+    </tr>
+}
+const MembersTable = ({search, handleSearchChange, setSorting, sortBy, reverseSortDirection, rows}) => (
+    <div className="mt-5">
+        <div className='d-flex gap-5 justify-content-center'>
+            <h3 className='fw-bolder'>Member Id</h3>
+            <input
+                type="text"
+                className="form-control w-50 mb-3"
+                id="memberId"
+                name="memberId"
+                // value={formData.memberId}
+                // onChange={handleInputChange}
+                disabled={true}
+            />
+        </div>
+        {/*{errors.memberId && <span className="error-message">{errors.memberId}</span>}*/}
+        <div className="input-group mb-4 border rounded-3">
+            <span className="input-group-text bg-transparent px-6 border-0">
+                <i className="ti ti-search fs-6"></i>
+            </span>
+            <input
+                type="text"
+                className="form-control border-0"
+                placeholder="Search by any field"
+                value={search}
+                onChange={handleSearchChange}
+            />
+        </div>
+
+        <div className={`${style.tableView} table-responsive w-100 rounded-2 mb-4`}>
+            <table className="table align-middle text-nowrap mb-0 table-hover">
+                <thead>
+                <tr className='text-muted fw-semibold'>
+                    <th className={style.tHeader} colSpan={2} onClick={() => setSorting('name')}>
+                        <div className="table-header d-flex justify-content-evenly">
+                            <span>Name</span>
+                            <i className={`ti ti-${sortBy === 'name' && (reverseSortDirection ? "chevron-down" : "chevron-up") || 'selector'}`}></i>
+                        </div>
+                    </th>
+                    <th className={style.tHeader} onClick={() => setSorting('memberId')}>
+                        <div className="table-header d-flex justify-content-evenly">
+                            <span>memberId</span>
+                            <i className={`ti ti-${sortBy === 'memberId' && (reverseSortDirection ? "chevron-down" : "chevron-up") || 'selector'}`}></i>
+                        </div>
+                    </th>
+                    <th className={style.tHeader}>
+                        <div className="table-header d-flex justify-content-evenly">
+                            <span>Select</span>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {rows.length > 0 ? (
+                    rows
+                ) : (
+                    <tr>
+                        <td colSpan={Object.keys(membersData[0]).length}>Nothing found</td>
+                    </tr>
+                )}
+                </tbody>
+            </table>
+        </div>
+    </div>
+)
 
 const StepForm = () => {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        emailAddress: '',
-        phoneNumber: '',
-        location: '',
-        dateOfBirth: '',
-        companyName: '',
-        companyUrl: '',
-        shortDescription: '',
-        interviewFor: '',
-        interviewType: '',
-        interviewLocation: '',
-        interviewDate: '',
-        interviewRequirements: '',
-        behavior: '',
-        confidence: '',
-        result: '',
-        comments: '',
-        interviewerRating: '',
-    });
-
-    const [currentStep, setCurrentStep] = useState(1);
-    const [errors, setErrors] = useState({
-        firstName: '',
-        lastName: '',
-        emailAddress: '',
-        location: '',
-    });
-
-    const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setFormData({...formData, [name]: value});
-    };
-
-    const handleNext = () => {
-        const newErrors = {};
-        let hasError = false;
-
-        if (currentStep === 1) {
-            if (!formData.firstName) {
-                newErrors.firstName = 'This field is required.';
-                hasError = true;
-            } else {
-                newErrors.firstName = '';
-            }
-
-            if (!formData.lastName) {
-                newErrors.lastName = 'This field is required.';
-                hasError = true;
-            } else {
-                newErrors.lastName = '';
-            }
-        }
-
-        if (currentStep === 2) {
-            if (!formData.emailAddress) {
-                newErrors.emailAddress = 'This field is required.';
-                hasError = true;
-            } else {
-                newErrors.emailAddress = '';
-            }
-
-            if (!formData.location) {
-                newErrors.location = 'This field is required.';
-                hasError = true;
-            } else {
-                newErrors.location = '';
-            }
-        }
-
-
-        if (hasError) {
-            setErrors(newErrors);
-            return;
-        }
-
-        setCurrentStep(currentStep + 1);
-    };
-
-    const handlePrevious = () => {
-        setCurrentStep(currentStep - 1);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Form submitted:', formData);
-        // Additional submission logic can be added here
-    };
 
     return (
         <div className="card">
-            <div className="card-body wizard-content">
-                <h4 className="card-title">Step wizard with validation</h4>
-                <form onSubmit={handleSubmit} className="validation-wizard wizard-circle mt-5 wizard clearfix"
-                      role="application" id="steps-uid-7" noValidate>
-                    {/* Step 1 */}
-                    {currentStep === 1 && (
-                        <section id="steps-uid-7-p-0" role="tabpanel" aria-labelledby="steps-uid-7-h-0"
-                                 className="body current" aria-hidden="false">
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <label htmlFor="wfirstName2">
-                                            First Name : <span className="danger">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control required"
-                                            id="wfirstName2"
-                                            name="firstName"
-                                            value={formData.firstName}
-                                            onChange={handleInputChange}
-                                        />
-                                        {errors.firstName && <span className="error-message">{errors.firstName}</span>}
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <label htmlFor="wlastName2">
-                                            Last Name : <span className="danger">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control required"
-                                            id="wlastName2"
-                                            name="lastName"
-                                            value={formData.lastName}
-                                            onChange={handleInputChange}
-                                        />
-                                        {errors.lastName && <span className="error-message">{errors.lastName}</span>}
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" onClick={handleNext}>Next</button>
-                        </section>
-                    )}
-
-
-                    {/* Add other sections (steps) similarly */}
-
-                    {/* Final Step */}
-                    {currentStep === 2 && (
-                        <div className="actions clearfix">
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <label htmlFor="wemailAddress2">
-                                            Email Address : <span className="danger">*</span>
-                                        </label>
-                                        <input
-                                            type="email"
-                                            className="form-control required"
-                                            id="wemailAddress2"
-                                            name="emailAddress"
-                                            value={formData.emailAddress}
-                                            onChange={handleInputChange}
-                                        />
-                                        {errors.emailAddress &&
-                                            <span className="error-message">{errors.emailAddress}</span>}
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <label htmlFor="wphoneNumber2">Phone Number :</label>
-                                        <input
-                                            type="tel"
-                                            className="form-control"
-                                            id="wphoneNumber2"
-                                            name='phoneNumber'
-                                            value={formData.phoneNumber}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <label htmlFor="wlocation2">
-                                            Select City : <span className="danger">*</span>
-                                        </label>
-                                        <select
-                                            className="form-select required"
-                                            id="wlocation2"
-                                            name="location"
-                                            value={formData.location}
-                                            onChange={handleInputChange}
-                                        >
-                                            <option value="">Select City</option>
-                                            <option value="India">India</option>
-                                            <option value="USA">USA</option>
-                                            <option value="Dubai">Dubai</option>
-                                        </select>
-                                        {errors.location && <span className="error-message">{errors.location}</span>}
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="mb-3">
-                                        <label htmlFor="wdate2">Date of Birth :</label>
-                                        <input
-                                            type="date"
-                                            className="form-control"
-                                            id="wdate2"
-                                            // value={formData.dateOfBirth}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" onClick={handlePrevious}>Previous</button>
-                            <button type="submit" onClick={handleNext}>Submit</button>
-                        </div>
-                    )}
-                </form>
+            <h2 className='fw-bolder text-center mt-5'>Lend a Book</h2>
+            <div className="d-flex flex-row gap-3 justify-content-between">
+                <div className="card-body pt-0">
+                    <CreateTable Data={membersData} TableElement={MembersTable} RowsElement={MembersRows}/>
+                </div>
+                <div className="card-body pt-0">
+                    <CreateTable Data={membersData} TableElement={MembersTable} RowsElement={MembersRows}/>
+                </div>
             </div>
         </div>
     );

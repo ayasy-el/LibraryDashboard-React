@@ -13,6 +13,7 @@ import AddBook from "./layout/DashboardPage/AddBook.jsx";
 import MemberEdit from "./layout/DashboardPage/AddMember.jsx";
 import AddMember from "./layout/DashboardPage/Member2.jsx";
 import StepForm from "./layout/DashboardPage/LendBook.jsx";
+import TestTable from "./layout/DashboardPage/TestTable.jsx";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                 <Route path={'/add-member'} element={<AddMember/>}/>
                 <Route path={'/edit-member'} element={<MemberEdit/>}/>
                 <Route path={'/lend-book'} element={<StepForm/>}/>
+                <Route path={'/test'} element={<TestTable/>}/>
             </Route>
         </Routes>
     )

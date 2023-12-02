@@ -1,7 +1,7 @@
 import style from '../../assets/css/Table.module.css';
 import CreateTable from "../../Component/CreateTable.jsx";
 
-const membersData = [
+export const membersData = [
     {
         "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg",
         "name": "John Doe",
