@@ -1,4 +1,3 @@
-import React from 'react';
 import style from "../../assets/css/Table.module.css";
 import {useTableLogic} from "../../Component/FilterTableLib.js";
 
