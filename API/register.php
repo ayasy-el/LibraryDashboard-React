@@ -1,5 +1,15 @@
 <?php
 global $connection;
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Respond to preflight requests
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("HTTP/1.1 200 OK");
+    exit();
+}
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: access');
 header('Access-Control-Allow-Methods: POST');
@@ -8,6 +18,7 @@ header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/sendJson.php';
+require_once __DIR__ . '/jwtHandler.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') :
     $data = json_decode(file_get_contents('php://input'));
@@ -50,7 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') :
 
     $sql = "INSERT INTO `admin`(`name`,`email`,`password`) VALUES('$name','$email','$hash_password')";
     $query = mysqli_query($connection, $sql);
-    if ($query) sendJson(201, 'You have successfully registered.');
+
+    $sql = "SELECT * FROM `admin` WHERE `email`='$email'";
+    $query = mysqli_query($connection, $sql);
+    $row = mysqli_fetch_array($query, MYSQLI_ASSOC);
+
+    if ($query) sendJson(201, 'You have successfully registered.', [
+        'token' => encodeToken($row['id'])
+    ]);
     sendJson(500, 'Something going wrong.');
 endif;
 

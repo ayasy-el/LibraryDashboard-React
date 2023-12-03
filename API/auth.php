@@ -1,5 +1,15 @@
 <?php
 global $connection;
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Respond to preflight requests
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: *");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("HTTP/1.1 200 OK");
+    exit();
+}
+
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: access');
 header('Access-Control-Allow-Methods: GET');

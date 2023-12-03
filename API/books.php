@@ -1,13 +1,13 @@
 <?php
-global $conn;
-include './koneksi.php';
+global $connection;
+include './database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $sql = "INSERT INTO books (thumbnail, title, author, publisher, category, status) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connection->prepare($sql);
 
         $thumbnail = $data['thumbnail'];
         $title = $data['title'];
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $sql .= " WHERE bookId='$bookId'";
         } else if (isset($_GET['q'])) {
             $searchQuery = $_GET['q'];
-            $searchQuery = mysqli_real_escape_string($conn, $searchQuery);
+            $searchQuery = mysqli_real_escape_string($connection, $searchQuery);
 
             $sql .= " WHERE 
                     bookId LIKE '%$searchQuery%' OR 
@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             $conditions = array();
             foreach ($_GET as $key => $value) {
-                $key = mysqli_real_escape_string($conn, $key);
-                $value = mysqli_real_escape_string($conn, $value);
+                $key = mysqli_real_escape_string($connection, $key);
+                $value = mysqli_real_escape_string($connection, $value);
 
                 $conditions[] = "$key = '$value'";
             }
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $sql .= " WHERE $whereCondition";
         }
 
-        $result = $conn->query($sql);
+        $result = $connection->query($sql);
 
         if ($result->num_rows > 0) {
             header("HTTP/1.1 200 OK");
@@ -95,14 +95,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
 
         $setValues = '';
         foreach ($data as $key => $value) {
-            $key = mysqli_real_escape_string($conn, $key);
-            $value = mysqli_real_escape_string($conn, $value);
+            $key = mysqli_real_escape_string($connection, $key);
+            $value = mysqli_real_escape_string($connection, $value);
             $setValues .= $key . "='$value', ";
         }
         $setValues = rtrim($setValues, ', ');
 
         $sql = "UPDATE books SET $setValues WHERE bookId=?";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connection->prepare($sql);
         $stmt->bind_param("s", $bookId);
 
         if ($stmt->execute()) {
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $bookId = end($url_parts);
 
         $sql = "DELETE FROM books WHERE bookId=?";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connection->prepare($sql);
         $stmt->bind_param("s", $bookId);
 
         if ($stmt->execute()) {

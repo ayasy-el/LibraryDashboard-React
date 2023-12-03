@@ -5,7 +5,6 @@ import axios from 'axios';
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [rememberDevice, setRememberDevice] = useState(false);
 
     const [loginError, setLoginError] = useState(false)
     const [validateMsg, setValidateMsg] = useState({email: '', password: ''})
@@ -14,8 +13,7 @@ const LoginForm = () => {
 
 
     const performLoginActions = (data) => {
-        if (rememberDevice)
-            localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data));
         navigate('/');
     }
 
@@ -37,15 +35,14 @@ const LoginForm = () => {
         event.preventDefault();
         let errors = {};
 
-        if (!email) {
+        if (!email)
             errors.email = "email is required";
-        }
 
-        if (!password) {
+        if (!password)
             errors.password = "password is required";
-        } else if (password.length < 8) {
+        else if (password.length < 8)
             errors.password = "password must be more than 8 characters";
-        }
+
         setValidateMsg(errors)
     };
 
@@ -62,13 +59,13 @@ const LoginForm = () => {
                 </div>
             </div>}
             <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
+                <label htmlFor="email" className="form-label">
                     Email
                 </label>
                 <input
                     type="email"
                     className={`form-control ${validateMsg.email && 'is-invalid'}`}
-                    id="exampleInputEmail1"
+                    id="email"
                     aria-describedby="emailHelp"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -78,13 +75,13 @@ const LoginForm = () => {
                 </div>
             </div>
             <div className="mb-4">
-                <label htmlFor="exampleInputPassword1" className="form-label">
+                <label htmlFor="password" className="form-label">
                     Password
                 </label>
                 <input
                     type="password"
                     className={`form-control ${validateMsg.password && 'is-invalid'}`}
-                    id="exampleInputPassword1"
+                    id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -93,21 +90,6 @@ const LoginForm = () => {
                 </div>
             </div>
             <div className="d-flex align-items-center justify-content-between mb-4">
-                <div className="form-check">
-                    <input
-                        className="form-check-input primary"
-                        type="checkbox"
-                        id="flexCheckChecked"
-                        checked={rememberDevice}
-                        onChange={(e) => setRememberDevice(e.target.checked)}
-                    />
-                    <label
-                        className="form-check-label text-dark"
-                        htmlFor="flexCheckChecked"
-                    >
-                        Remember this Device
-                    </label>
-                </div>
                 <Link
                     className="text-primary fw-medium"
                     to="#"

@@ -1,11 +1,12 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const dataUser = {
     name: 'John Due',
     img: "/images/profile/user-1.jpg"
 };
 
-function DropdownElement() {
+function DropdownElement({data}) {
+    const navigate = useNavigate()
     return (
         <div className="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
             <div className="py-3 px-7 pb-0">
@@ -15,10 +16,10 @@ function DropdownElement() {
                 <img src="/images/profile/user-1.jpg" className="rounded-circle" width={80}
                      height={80} alt=""/>
                 <div className="ms-3">
-                    <h5 className="mb-1 fs-3">John Due</h5>
+                    <h5 className="mb-1 fs-3">{data.name}</h5>
                     <span className="mb-1 d-block">Librarian</span>
                     <p className="mb-0 d-flex align-items-center gap-2">
-                        <i className="ti ti-mail fs-4"/> info@modernize.com
+                        <i className="ti ti-mail fs-4"/> {data.email}
                     </p>
                 </div>
             </div>
@@ -39,19 +40,22 @@ function DropdownElement() {
                 </Link>
             </div>
             <div className="d-grid py-4 px-7 pt-8">
-                <Link to="/logout" className="btn btn-outline-primary">
+                <button onClick={() => {
+                    localStorage.removeItem('user');
+                    navigate('/login')
+                }} className="btn btn-outline-primary">
                     Log Out
-                </Link>
+                </button>
             </div>
         </div>
     )
 }
 
-function RightNav() {
+function RightNav({data}) {
     const UsernameElement = () => (
         <h5 className="m-0 fw-bolder cursor-pointer" id="drop2"
             data-bs-toggle="dropdown" aria-expanded="false">
-            {dataUser.name}
+            {data.name}
         </h5>
     );
     const ProfileElement = () => (
@@ -67,7 +71,7 @@ function RightNav() {
                 <UsernameElement/>
                 <li className="nav-item dropdown">
                     <ProfileElement/>
-                    <DropdownElement/>
+                    <DropdownElement data={data}/>
                 </li>
             </ul>
         </div>
@@ -100,12 +104,12 @@ function LeftNav() {
     );
 }
 
-function Header() {
+function Header({data}) {
     return (
         <header className="app-header">
             <nav className="navbar navbar-expand-lg navbar-light">
                 <LeftNav/>
-                <RightNav/>
+                <RightNav data={data}/>
             </nav>
         </header>
     );
