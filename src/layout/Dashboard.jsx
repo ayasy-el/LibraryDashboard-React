@@ -20,7 +20,6 @@ export default function OverviewPage() {
                     }
                 })
                     .then((res) => {
-                        console.log('Response SET');
                         setResData(res.data);
                     })
                     .catch(() => {

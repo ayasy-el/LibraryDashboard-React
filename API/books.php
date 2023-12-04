@@ -1,6 +1,6 @@
 <?php
 global $connection;
-include './database.php';
+include './lib/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {

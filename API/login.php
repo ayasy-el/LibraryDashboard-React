@@ -17,8 +17,8 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once __DIR__ . '/database.php';
-require_once __DIR__ . '/jwtHandler.php';
+require_once __DIR__ . '/lib/database.php';
+require_once __DIR__ . '/lib/jwtHandler.php';
 
 // Handle only POST requests
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

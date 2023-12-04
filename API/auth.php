@@ -16,8 +16,8 @@ header('Access-Control-Allow-Methods: GET');
 header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
-require_once __DIR__ . '/database.php';
-require_once __DIR__ . '/jwtHandler.php';
+require_once __DIR__ . '/lib/database.php';
+require_once __DIR__ . '/lib/jwtHandler.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') :
     $headers = getallheaders();

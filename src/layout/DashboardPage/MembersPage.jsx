@@ -1,103 +1,59 @@
-import React from 'react';
 import style from "../../assets/css/Table.module.css";
 import {useTableLogic} from "../../Component/FilterTableLib.js";
-
-const membersData = [
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg",
-        "name": "John Doe",
-        "memberId": "M001",
-        "email": "johndoe@example.com",
-        "phone": "+1234567890",
-        "status": "borrowing"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-3.jpg",
-        "name": "Jane Smith",
-        "memberId": "M002",
-        "email": "janesmith@example.com",
-        "phone": "+1987654321",
-        "status": "not borrowing"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg",
-        "name": "Alice Johnson",
-        "memberId": "M003",
-        "email": "alicejohnson@example.com",
-        "phone": "+1122334455",
-        "status": "overdue"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg",
-        "name": "Michael Brown",
-        "memberId": "M004",
-        "email": "michaelbrown@example.com",
-        "phone": "+1654321890",
-        "status": "not borrowing"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg",
-        "name": "Eliza Emily",
-        "memberId": "M005",
-        "email": "emilydavis@example.com",
-        "phone": "+1789456231",
-        "status": "borrowing"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-5.jpg",
-        "name": "David Wilson",
-        "memberId": "M006",
-        "email": "davidwilson@example.com",
-        "phone": "+1908765432",
-        "status": "not borrowing"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-6.jpg",
-        "name": "Sophia Martinez",
-        "memberId": "M007",
-        "email": "sophiamartinez@example.com",
-        "phone": "+1543210987",
-        "status": "overdue"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg",
-        "name": "James Lee",
-        "memberId": "M008",
-        "email": "jameslee@example.com",
-        "phone": "+1324354657",
-        "status": "not borrowing"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-6.jpg",
-        "name": "Olivia Garcia",
-        "memberId": "M009",
-        "email": "oliviagarcia@example.com",
-        "phone": "+1876543210",
-        "status": "overdue"
-    },
-    {
-        "img": "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg",
-        "name": "William Rodriguez",
-        "memberId": "M010",
-        "email": "williamrodriguez@example.com",
-        "phone": "+1987654321",
-        "status": "not borrowing"
-    }
-];
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {NavLink} from "react-router-dom";
 
 function MembersPage() {
+    const [membersData, setMembersData] = useState([])
+    useEffect(() => {
+        try {
+            axios.get(`http://127.0.0.1:3000/API/members.php`)
+                .then((res) => {
+                    setMembersData(res.data)
+                })
+                .catch((error) => {
+                    console.error('Tidak ada data:', error);
+                });
+        } catch (error) {
+            console.error('Tidak ada data:', error);
+        }
+
+    }, []);
+
+
     const {
         search,
         sortedData,
         sortBy,
         reverseSortDirection,
+        setReverseSortDirection,
         setSorting,
         handleSearchChange,
     } = useTableLogic(membersData);
 
+    useEffect(() => {
+        setReverseSortDirection(true)
+        setSorting('memberId')
+    }, [membersData]);
+
+    // const navigate = useNavigate()
+
+    const deleteHandler = (event) => {
+        const id = event.currentTarget.getAttribute('data-id')
+        if (confirm('Apakah anda yakin akan menghapus member ini'))
+            axios.delete(`http://127.0.0.1:3000/API/members.php/${id}`)
+                .then(() => {
+                    window.location.reload(false)
+                }).catch(() => {
+                alert('Error: Member gagal dihapus')
+            })
+    }
+
     const rows = sortedData.map((row, index) => (
         <tr key={index}>
-            <td><img className='rounded-circle' src={row.img} alt={row.name} width={40} height={40}/></td>
+            <td><img className='rounded-circle' src={row.img || '/public/images/profile/profile-placeholder.png'}
+                     alt={row.name} width={40} height={40}/></td>
             <td className='text-start'>
                 <h6 className="fw-semibold mb-1">{row.name}</h6>
                 <p className="mb-0 fs-2 text-muted">{row.memberId}</p>
@@ -109,10 +65,10 @@ function MembersPage() {
                     className={`badge fw-semibold py-1 w-85 bg-${row.status.toLowerCase() === 'not borrowing' ? 'success' : (row.status.toLowerCase() === 'borrowing' ? 'primary' : 'danger')}-subtle text-${row.status.toLowerCase() === 'not borrowing' ? 'success' : (row.status.toLowerCase() === 'borrowing' ? 'primary' : 'danger')}`}>{row.status}</span>
             </td>
             <td>
-                <button className='btn me-2 btn-light'>
+                <NavLink to={`/members/${row.memberId}`} className='btn me-2 btn-light'>
                     <i className='ti ti-edit fs-6'></i>
-                </button>
-                <button className='btn me-2 btn-light'>
+                </NavLink>
+                <button onClick={deleteHandler} data-id={row.memberId} className='btn me-2 btn-light'>
                     <i className='ti ti-trash fs-6'></i>
                 </button>
             </td>
@@ -120,7 +76,7 @@ function MembersPage() {
     ));
 
     return (
-        <div className="container mt-2">
+        <div className="container mt-2 ">
             <h2 className='text-center mb-4 fw-bolder'>All Members</h2>
             <div className="input-group border rounded-3 mb-4">
                 <span className="input-group-text bg-transparent px-6 border-0">
@@ -170,7 +126,7 @@ function MembersPage() {
                         rows
                     ) : (
                         <tr>
-                            <td colSpan={Object.keys(membersData[0]).length}>Nothing found</td>
+                            <td colSpan={Object.keys(membersData).length}>Nothing found</td>
                         </tr>
                     )}
                     </tbody>

@@ -24,12 +24,20 @@ const navConfig = [
         icon: 'users',
     },
     {
-        title: 'dashboard',
+        title: '',
         type: 'divider',
     },
     {
-        title: 'user',
-        path: '/user',
+        title: 'Lend Book',
+        path: '/lend-book',
+        icon: 'affiliate-filled',
+    }, {
+        title: 'Add Member',
+        path: '/add-member',
+        icon: 'affiliate-filled',
+    }, {
+        title: 'Add Books',
+        path: '/add-book',
         icon: 'affiliate-filled',
     }
 ];

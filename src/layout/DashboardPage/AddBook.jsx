@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import {useState, useRef} from 'react';
 
 const AddBook = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -62,7 +62,7 @@ const AddBook = () => {
                     </div>
                     <div className="card-body p-4">
                         {inputName.map((item, index) => (
-                            <div className="mb-4 row align-items-center">
+                            <div key={index} className="mb-4 row align-items-center">
                                 <label
                                     htmlFor={item.toLowerCase()}
                                     className="form-label ps-5 fw-semibold col-sm-3 col-form-label"

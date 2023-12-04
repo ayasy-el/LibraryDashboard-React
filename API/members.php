@@ -1,6 +1,22 @@
 <?php
 global $connection;
-include './database.php';
+include './lib/database.php';
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Respond to preflight requests
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: *");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("HTTP/1.1 200 OK");
+    exit();
+}
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: access');
+header('Access-Control-Allow-Methods: *');
+header('Content-Type: application/json; charset=UTF-8');
+header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -18,8 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("sssss", $img, $name, $email, $phone, $status);
 
         if ($stmt->execute()) {
+            $last_id = $stmt->insert_id; // Ambil ID dari data yang baru saja dimasukkan
+
+            // Tampilkan data sesuai ID yang baru saja ditambahkan
+            $sql = "SELECT * FROM members WHERE memberId = ?";
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param("i", $last_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
             header("HTTP/1.1 201 Created");
-            echo "Data berhasil ditambahkan";
+            echo json_encode($row); // Tampilkan data sesuai ID dalam format JSON
         } else {
             throw new Exception("Gagal menambahkan data");
         }
@@ -30,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt->close();
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {

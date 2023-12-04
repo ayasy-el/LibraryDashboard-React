@@ -41,7 +41,7 @@ const LoginForm = () => {
         if (!password)
             errors.password = "password is required";
         else if (password.length < 8)
-            errors.password = "password must be more than 8 characters";
+            errors.password = "password  must be at least 8 characters long";
 
         setValidateMsg(errors)
     };

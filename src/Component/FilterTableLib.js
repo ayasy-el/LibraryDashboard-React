@@ -1,6 +1,7 @@
 import {useState} from 'react';
 
 export function useTableLogic(initialData) {
+
     const [search, setSearch] = useState('');
     const [sortedData, setSortedData] = useState(initialData);
     const [sortBy, setSortBy] = useState(null);
@@ -49,6 +50,7 @@ export function useTableLogic(initialData) {
         sortedData,
         sortBy,
         reverseSortDirection,
+        setReverseSortDirection,
         setSorting,
         handleSearchChange,
     };
