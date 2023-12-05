@@ -83,7 +83,7 @@ export default function VisitorsGraph() {
                             <h5 className="card-title fs-8 fw-semibold">
                                 Visitors Overview
                             </h5>
-                            <p className="card-subtitle mb-0">Overview of Profit</p>
+                            <p className="card-subtitle mb-0">Overview of Visitors</p>
                         </div>
                         <select className="form-select w-auto">
                             <option value={1}>March 2023</option>
@@ -100,23 +100,23 @@ export default function VisitorsGraph() {
                                     <i className="ti ti-grid-dots text-primary fs-6"/>
                                 </div>
                                 <div>
-                                    <h4 className="mb-0 fs-7 fw-semibold">$63,489.50</h4>
-                                    <p className="fs-3 mb-0">Total Earnings</p>
+                                    <h4 className="mb-0 fs-7 fw-semibold">480</h4>
+                                    <p className="fs-3 mb-0">Total Visitors This Month</p>
                                 </div>
                             </div>
                             <div>
                                 <div className="d-flex align-items-baseline mb-4">
                                     <span className="round-8 text-bg-primary rounded-circle me-6"/>
                                     <div>
-                                        <p className="fs-3 mb-1">Earnings this month</p>
-                                        <h6 className="fs-5 fw-semibold mb-0">$48,820</h6>
+                                        <p className="fs-3 mb-1">Visitors This Week</p>
+                                        <h6 className="fs-5 fw-semibold mb-0">110</h6>
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-baseline mb-4 pb-1">
                                     <span className="round-8 text-bg-secondary rounded-circle me-6"/>
                                     <div>
-                                        <p className="fs-3 mb-1">Expense this month</p>
-                                        <h6 className="fs-5 fw-semibold mb-0">$26,498</h6>
+                                        <p className="fs-3 mb-1">Visitors This Day</p>
+                                        <h6 className="fs-5 fw-semibold mb-0">40</h6>
                                     </div>
                                 </div>
                                 <div>

@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const BookCard = ({imageSrc, bookName, price, originalPrice}) => {
+const BookCard = ({imageSrc, bookName, publisher, category}) => {
     return (
         <div className="col-sm-6 col-xl-3">
             <div className="card overflow-hidden rounded-2">
@@ -24,10 +24,10 @@ const BookCard = ({imageSrc, bookName, price, originalPrice}) => {
                 <div className="card-body pt-3 p-4">
                     <h6 className="fw-semibold fs-4">{bookName}</h6>
                     <div className="d-flex align-items-center justify-content-between">
-                        <h6 className="fw-semibold fs-4 mb-0">
-                            {price}{' '}
+                        <h6 className="fw-semibold fs-3 mb-0">
+                            {publisher}{' '}
                             <span className="ms-2 fw-normal text-muted fs-3">
-                                <del>{originalPrice}</del>
+                                {category}
                             </span>
                         </h6>
                     </div>
@@ -41,29 +41,28 @@ const BookList = () => {
     const books = [
         {
             imageSrc: "/images/products/s1.jpg",
-            bookName: "The Art of War",
-            price: "$15",
-            originalPrice: "$20"
+            bookName: "Book Title 1",
+            publisher: "Publisher 1",
+            category: "History"
         },
         {
             imageSrc: "/images/products/s4.jpg",
-            bookName: "To Kill a Mockingbird",
-            price: "$12",
-            originalPrice: "$18"
+            bookName: "Book Title 2",
+            publisher: "Publisher 2",
+            category: "Fiction"
         },
         {
             imageSrc: "/images/products/s7.jpg",
-            bookName: "1984",
-            price: "$10",
-            originalPrice: "$15"
+            bookName: "Book Title 3",
+            publisher: "Book Title 3",
+            category: "Lifestyle"
         },
         {
             imageSrc: "/images/products/s11.jpg",
-            bookName: "The Great Gatsby",
-            price: "$14",
-            originalPrice: "$25"
+            bookName: "Book Title 4",
+            publisher: "Publisher 4",
+            category: "Social"
         }
-        // ... tambahkan data buku lainnya sesuai kebutuhan
     ];
 
     return (
@@ -73,8 +72,8 @@ const BookList = () => {
                     key={index}
                     imageSrc={book.imageSrc}
                     bookName={book.bookName}
-                    price={book.price}
-                    originalPrice={book.originalPrice}
+                    publisher={book.publisher}
+                    category={book.category}
                 />
             ))}
         </div>

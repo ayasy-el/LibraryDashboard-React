@@ -3,42 +3,42 @@ const OverdueDetails = () => {
         {
             imageUrl: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg',
             name: 'Sunil Joshi',
-            role: 'Web Designer',
-            project: 'Elite Admin',
-            priority: 'Low',
-            budget: '$3.9K',
+            role: '00001',
+            project: 'Book Title 1',
+            priority: '1 Day',
+            budget: '$3',
         },
         {
             imageUrl: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg',
             name: 'John Deo',
-            role: 'Web Developer',
-            project: 'Flexy Admin',
-            priority: 'Medium',
-            budget: '$24.5K',
+            role: '00002',
+            project: 'Book Title 2',
+            priority: '2 Days',
+            budget: '$6',
         },
         {
             imageUrl: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-3.jpg',
             name: 'Nirav Joshi',
-            role: 'Web Manager',
-            project: 'Material Pro',
-            priority: 'High',
-            budget: '$12.8K',
+            role: '00003',
+            project: 'Book Title 3',
+            priority: '6 Days',
+            budget: '$18',
         },
         {
             imageUrl: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg',
             name: 'Yuvraj Sheth',
-            role: 'Project Manager',
-            project: 'Xtreme Admin',
-            priority: 'Low',
-            budget: '$4.8K',
+            role: '00004',
+            project: 'Book Title 4',
+            priority: '4 Days',
+            budget: '$12',
         },
         {
             imageUrl: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-5.jpg',
             name: 'Micheal Doe',
-            role: 'Content Writer',
-            project: 'Helping Hands WP Theme',
-            priority: 'High',
-            budget: '$9.3K',
+            role: '00005',
+            project: 'Book Title 5',
+            priority: '10 Days',
+            budget: '$30',
         },
     ];
 
@@ -57,11 +57,11 @@ const OverdueDetails = () => {
                             <thead>
                             <tr className="text-muted fw-semibold">
                                 <th scope="col" className="ps-0">
-                                    Assigned
+                                    Borrower
                                 </th>
-                                <th scope="col">Project</th>
-                                <th scope="col">Priority</th>
-                                <th scope="col">Budget</th>
+                                <th scope="col">Book</th>
+                                <th scope="col">Overdue</th>
+                                <th scope="col">Fine</th>
                             </tr>
                             </thead>
                             <tbody className="border-top">

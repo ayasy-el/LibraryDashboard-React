@@ -160,9 +160,7 @@ const EditMember = () => {
     const saveHandler = () => {
         let errors = {};
         if (selectedFile)
-            setFormData({...formData, img: '/public/images/' + selectedFile.name})
-        else
-            setFormData({...formData, img: memberData.img})
+            setFormData({...formData, img: '/images/' + selectedFile.name})
 
         if (!formData.name)
             errors.name = "name is required";
@@ -186,7 +184,7 @@ const EditMember = () => {
 
     const handleResetImage = () => {
         setSelectedFile(null);
-        setFormData({...formData, img: ''});
+        setFormData({...formData, img: '/images/profile/profile-placeholder.png'})
         // imgRef.current.value = '';
     };
 
