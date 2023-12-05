@@ -4,7 +4,8 @@ import {Outlet, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 
-export default function OverviewPage() {
+export default function Dashboard() {
+
     const [resData, setResData] = useState(null);
     const navigate = useNavigate();
 

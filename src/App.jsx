@@ -1,5 +1,5 @@
 import './assets/scss/styles.scss'
-import './assets/js/main.js'
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import {Routes, Route} from "react-router-dom";
 

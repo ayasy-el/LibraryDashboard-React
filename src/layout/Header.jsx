@@ -1,4 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
+import {toggleSidebar, setSidebarType} from "../Component/sidebarToggler.js";
+import {useEffect} from "react";
 
 const dataUser = {
     name: 'John Due',
@@ -79,9 +81,20 @@ function RightNav({data}) {
 }
 
 function LeftNav() {
+
+    useEffect(() => {
+        setSidebarType();
+        window.addEventListener('resize', setSidebarType);
+
+        return () => {
+            window.removeEventListener('resize', setSidebarType);
+        };
+    }, []);
+
     const HamburgerMenu = () => (
         <li className="nav-item d-block d-xl-none">
-            <a className="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+            <a onClick={toggleSidebar}
+               className="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                 <i className="ti ti-menu-2"/>
             </a>
         </li>
