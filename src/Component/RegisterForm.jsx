@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import {apiUrl} from "../config.js";
 
 const RegisterForm = () => {
     const [name, setName] = useState('');
@@ -20,7 +21,7 @@ const RegisterForm = () => {
     useEffect(() => {
         if (Object.keys(validateMsg).length === 0) {
 
-            axios.post("http://127.0.0.1:3000/API/register.php", {
+            axios.post(`${apiUrl}/register.php`, {
                 name, email, password
             }).then((data) => {
                 performLoginActions(data)

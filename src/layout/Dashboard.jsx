@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar.jsx";
 import {Outlet, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {apiUrl} from "../config.js";
 
 export default function Dashboard() {
 
@@ -14,7 +15,7 @@ export default function Dashboard() {
         if (userData) {
             try {
                 const {data: user} = JSON.parse(userData);
-                axios.get("http://127.0.0.1:3000/API/auth.php", {
+                axios.get(`${apiUrl}/auth.php`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${user.token}`
@@ -40,8 +41,7 @@ export default function Dashboard() {
         name: resData?.name,
         email: resData?.email,
     }
-
-    return (
+    return resData && <>
         <div
             className="page-wrapper"
             id="main-wrapper"
@@ -59,5 +59,5 @@ export default function Dashboard() {
                 </div>
             </div>
         </div>
-    );
+    </>
 }

@@ -1,6 +1,7 @@
 import {useState, useMemo, useEffect} from 'react';
 import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {apiUrl} from "../../config.js";
 
 const BorrowedBook = () => (
     <div className='mt-5'>
@@ -85,7 +86,7 @@ const EditMember = () => {
 
     useMemo(() => {
         try {
-            axios.get(`http://127.0.0.1:3000/API/members.php/${memberId}`)
+            axios.get(`${apiUrl}/members.php/${memberId}`)
                 .then((res) => {
                     setMemberData({...res.data[0]})
                     setFormData({...res.data[0]})
@@ -109,7 +110,7 @@ const EditMember = () => {
 
             try {
                 axios.post(
-                    "http://localhost:3000/api/upload.php",
+                    `${apiUrl}/upload.php`,
                     formData,
                     {
                         headers: {
@@ -129,7 +130,7 @@ const EditMember = () => {
             }
         } else {
             console.log(data.data)
-            navigate("/members")
+            window.location.reload(false)
         }
 
     }
@@ -137,7 +138,7 @@ const EditMember = () => {
     useEffect(() => {
         if (Object.keys(validateMsg).length === 0) {
             console.log(formData)
-            axios.patch(`http://127.0.0.1:3000/API/members.php/${memberId}`, formData)
+            axios.patch(`${apiUrl}/members.php/${memberId}`, formData)
                 .then((data) => {
                     performSubmitActions(data)
                 }).catch(() => {
@@ -149,7 +150,7 @@ const EditMember = () => {
 
     const deleteHandler = () => {
         if (confirm('Apakah anda yakin akan menghapus member ini'))
-            axios.delete(`http://127.0.0.1:3000/API/members.php/${memberId}`)
+            axios.delete(`${apiUrl}/members.php/${memberId}`)
                 .then(() => {
                     navigate('/members')
                 }).catch(() => {

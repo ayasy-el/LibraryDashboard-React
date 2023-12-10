@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {apiUrl} from "../../config.js";
 
 const AddMember = () => {
     // ===================== FORM STATE ================================
@@ -35,7 +36,7 @@ const AddMember = () => {
 
             try {
                 axios
-                    .post("http://localhost:3000/api/upload.php", formData, {
+                    .post(`${apiUrl}/upload.php`, formData, {
                         headers: {
                             "Content-Type": "multipart/form-data",
                         },
@@ -67,7 +68,7 @@ const AddMember = () => {
         if (Object.keys(validateMsg).length === 0) {
             console.log(formData);
             axios
-                .post("http://127.0.0.1:3000/API/members.php", formData)
+                .post(`${apiUrl}/members.php`, formData)
                 .then((data) => {
                     performSubmitActions(data);
                 })
