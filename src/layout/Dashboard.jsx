@@ -1,47 +1,19 @@
 import Header from "./Header.jsx";
 import Sidebar from "./Sidebar.jsx";
-import {Outlet, useNavigate} from "react-router-dom";
-import axios from "axios";
-import {useEffect, useState} from "react";
-import {apiUrl} from "../config.js";
+import {Outlet, Navigate} from "react-router-dom";
+import {useAuthToken} from '../hooks/UseAuthToken.js'
 
 export default function Dashboard() {
+    const {user} = useAuthToken()
 
-    const [resData, setResData] = useState(null);
-    const navigate = useNavigate();
+    // loading
+    if (user === null) return
 
-    useEffect(() => {
-        const userData = localStorage.getItem('user');
-        if (userData) {
-            try {
-                const {data: user} = JSON.parse(userData);
-                axios.get(`${apiUrl}/auth.php`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${user.token}`
-                    }
-                })
-                    .then((res) => {
-                        setResData(res.data);
-                    })
-                    .catch(() => {
-                        navigate('/login');
-                    });
-            } catch (error) {
-                console.error('Invalid user data in localStorage:', error);
-                navigate('/login');
-            }
-        } else {
-            navigate('/login');
-        }
-    }, [navigate]);
+    // forbidden
+    if (user === false)
+        return <Navigate to='/login'/>
 
-    const data = {
-        id: resData?.id,
-        name: resData?.name,
-        email: resData?.email,
-    }
-    return resData && <>
+    return (
         <div
             className="page-wrapper"
             id="main-wrapper"
@@ -53,11 +25,12 @@ export default function Dashboard() {
         >
             <Sidebar/>
             <div className="body-wrapper">
-                <Header data={data}/>
+                <Header data={user}/>
                 <div className="container-fluid">
                     <Outlet/>
                 </div>
             </div>
         </div>
-    </>
+    )
+
 }
