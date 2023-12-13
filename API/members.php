@@ -109,6 +109,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    try {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        // Ambil memberId dari endpoint URL
+        $url_parts = explode('/', $_SERVER['REQUEST_URI']);
+        $memberId = end($url_parts);
+
+        $sql = "UPDATE members SET img=?, name=?, email=?, phone=?, status=? WHERE memberId=?";
+        $stmt = $connection->prepare($sql);
+
+        $img = $data['img'];
+        $name = $data['name'];
+        $email = $data['email'];
+        $phone = $data['phone'];
+        $status = $data['status'];
+
+        $stmt->bind_param("sssssi", $img, $name, $email, $phone, $status, $memberId);
+
+        if ($stmt->execute()) {
+            // Tampilkan data yang telah diperbarui
+            $sql = "SELECT * FROM members WHERE memberId = ?";
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param("i", $memberId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
+            header("HTTP/1.1 200 OK");
+            echo json_encode($row); // Tampilkan data yang telah diperbarui dalam format JSON
+        } else {
+            throw new Exception("Gagal memperbarui data");
+        }
+    } catch (Exception $e) {
+        header("HTTP/1.1 500 Internal Server Error");
+        echo "Error: " . $e->getMessage();
+    }
+
+    $stmt->close();
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     try {
         $url_parts = explode('/', $_SERVER['REQUEST_URI']);
